@@ -1,0 +1,440 @@
+{
+  "label": "baseline",
+  "variant": "baseline",
+  "at": "2026-10-29T09:02:51",
+  "posthog": "http://127.0.0.1:8010",
+  "metrics": {
+    "decision_correct": 1.0,
+    "invalid_caught": 1.0,
+    "numbers_match": 1.0,
+    "approval_respected": 1.0,
+    "clarity": 0.844,
+    "first_try_passed": 1.0,
+    "template_used": 0.0
+  },
+  "agent_spend": {
+    "model_calls": 10,
+    "cost_usd": 0.00395,
+    "input_tokens": 19332,
+    "output_tokens": 4034
+  },
+  "judge_spend": {
+    "model_calls": 9,
+    "cost_usd": 0.009708,
+    "input_tokens": 3638,
+    "output_tokens": 1214
+  },
+  "wall_seconds": 78.3,
+  "runs": [
+    {
+      "experiment": 1,
+      "name": "Invoice template gallery",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "ship",
+        "variant": "test"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "test",
+        "reason": "clear_winner"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 4.9,
+      "readout": {
+        "headline": "Ship the test variant of the invoice template gallery: it clearly beat control on invoices sent.",
+        "decision": "ship",
+        "variant": "test",
+        "summary": "We tested the invoice template gallery against the current experience over 28 days, splitting users 50/50 with 3,000 users in each group. The test variant lifted the Invoice sent rate from 10% to 13%, and the code gives it a 100% chance of being best on that metric. Refund requests, our guardrail, did not get worse, so the win holds up without a safety trade-off. The decision is to ship the test variant.",
+        "details": [
+          "Invoice sent: control 10% (300 of 3,000) vs test 13% (390 of 3,000)",
+          "Test lift vs control: 30.2% (95% interval 12.3% to 49.7%)",
+          "Chance of being best: test 100%, control 0%",
+          "Refunds requested guardrail: control 1% vs test 1.03%, chance worse than control 55.5%, p-value 0.898",
+          "Runtime 28 days, no users saw more than one variant, sample ratio check p-value 1.000"
+        ],
+        "next_step": "Engineering rolls out the test template gallery to all users and the team keeps watching refund requests after launch."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision and key invoice numbers are clear, but saying refunds did not get worse is too definitive given the slight increase, and some statistical terms are unexplained."
+      }
+    },
+    {
+      "experiment": 2,
+      "name": "Friendlier payment reminder tone",
+      "approver": "rina",
+      "approved": false,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "no_clear_winner"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 4.8,
+      "readout": {
+        "headline": "Keep the current payment reminder tone; the friendlier version showed no reliable difference.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "We tested a friendlier tone for payment reminders against the current tone, splitting users 50/50 over 28 days. The friendlier version produced a slightly higher invoice-sent rate, but the difference was small and well within the range of chance. No variant reached the 95% chance of being best needed to call a winner, so there is no reliable difference. The guardrail metric for support tickets also showed no meaningful change, and the test ran long enough with enough users per group and clean assignment.",
+        "details": [
+          "Invoice sent rate: control 10%, friendlier test 10.2%",
+          "Chance of being best: control 41.4%, test 58.6% (needed 95%)",
+          "Lift for test: 2.2%, with a 95% range of -13.8% to 20.3%",
+          "Support tickets opened: control 1.6%, test 1.64%, no clear change",
+          "Users per variant: 2500 each; runtime 28 days",
+          "Share of users who saw both variants: 0%"
+        ],
+        "next_step": "Keep the current reminder tone for all users and consider a bolder test if the team wants to explore further gains."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision is immediate and supported by key numbers, but terms like \u201cguardrail metric,\u201d \u201clift,\u201d and \u201c95% range\u201d add unnecessary jargon."
+      }
+    },
+    {
+      "experiment": 3,
+      "name": "Annual billing toggle on pricing page",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "invalid",
+        "variant": null
+      },
+      "decided": {
+        "decision": "invalid",
+        "variant": null,
+        "reason": "sample_ratio_mismatch"
+      },
+      "decision_correct": true,
+      "asked_for_approval": false,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 5.6,
+      "readout": {
+        "headline": "Result is invalid because the test and control groups are not the planned size, so no decision can be made from it.",
+        "decision": "invalid",
+        "variant": null,
+        "summary": "We tested an annual billing toggle on the pricing page, splitting traffic 50/50 between control and test over 28 days. The groups came out uneven, which is a sample ratio mismatch with a p-value below 0.001, usually pointing to a bug in assignment or tracking. Because of this, the upgrade numbers can't be trusted even though the test variant looks stronger. No user saw both variants, so cross-contamination is not the cause.",
+        "details": [
+          "Upgrade completed: control 10% (300 of 3000 users) vs test 13% (312 of 2400 users)",
+          "Reported lift for test is 30.4%, with a 95% interval of 12% to 51%, but this is not usable given the mismatch",
+          "Sample ratio mismatch p-value: below 0.001 (limit is 0.001)",
+          "Users who saw more than one variant: 0 (0.0%)",
+          "Refunds requested: 0.67% in both control and test, no meaningful difference"
+        ],
+        "next_step": "Engineering will investigate assignment and tracking for the pricing page toggle, and the experiment will need to be rerun once the issue is fixed."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision, key numbers, and next steps are clear, though terms like \u201csample ratio mismatch\u201d and \u201cp-value\u201d add jargon."
+      }
+    },
+    {
+      "experiment": 4,
+      "name": "ACH autopay prompt after first payment",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_running",
+        "variant": null
+      },
+      "decided": {
+        "decision": "keep_running",
+        "variant": null,
+        "reason": "not_enough_data"
+      },
+      "decision_correct": true,
+      "asked_for_approval": false,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 3.8,
+      "readout": {
+        "headline": "Keep the ACH autopay prompt test running; no decision yet because it is too early.",
+        "decision": "keep_running",
+        "variant": null,
+        "summary": "We tested an ACH autopay prompt shown after a user's first payment, comparing the current experience (control) with the new prompt (test) on whether users sent an invoice. The test has run for 4 of the 14 days required, and the smallest group has 300 of the 1000 users required per variant. The test variant shows a higher invoice-sent rate, but the chance it is better than control is not high enough to act on, and the sample is still small. Because the minimum runtime and sample size have not been reached, the test should keep running.",
+        "details": [
+          "Runtime: 4 days, minimum required is 14 days",
+          "Users: control 300, test 310; minimum required is 1000 per variant",
+          "Invoice sent rate: control 10%, test 13.23%",
+          "Chance of being best: test 88.9%, control 11.1%; needed 95%",
+          "Test lift vs control: 34.9% (95% interval -14.7% to 104.8%)",
+          "Support tickets opened: control 1.67%, test 1.61%; no clear difference"
+        ],
+        "next_step": "The experiment continues collecting data until it reaches at least 14 days and 1000 users per variant, then the decision will be recomputed."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision and reasons are clear, with the key numbers included, though terms like \u201clift\u201d and \u201c95% interval\u201d are unexplained."
+      }
+    },
+    {
+      "experiment": 5,
+      "name": "One-click upgrade from the invoice list",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "guardrail_regressed"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 3.4,
+      "readout": {
+        "headline": "Keep the current invoice list experience; the one-click upgrade test raised upgrades but more users requested refunds.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "The one-click upgrade from the invoice list was tested against the current experience over 28 days, with traffic split evenly and no users seeing both versions. The test version lifted Upgrade completed from 10% to 13%, a result that is very unlikely to be chance. However, Refunds requested rose from 1% to 2.5%, and that guardrail metric must not get worse, so the experiment cannot ship. The decision is to keep the control.",
+        "details": [
+          "Upgrade completed: control 10% (300 of 3000) vs test 13% (390 of 3000), lift 30.3%",
+          "Test chance of being better than control: 100%; lift 95% range 13.3% to 49.7%",
+          "Refunds requested: control 1% (30 of 3000) vs test 2.5% (75 of 3000), lift 153.5%",
+          "Refunds requested chance of being worse than control: 100%",
+          "Support tickets opened: control 2% vs test 2.07%, not a significant change (p-value 0.855)",
+          "Runtime 28 days; 0.0% of users saw more than one variant"
+        ],
+        "next_step": "The one-click upgrade stays off for everyone, and the team should investigate why the refund rate rose before trying a revised version."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision and refund concern are clear upfront, with key rates provided, though terms like \u201cguardrail,\u201d \u201clift,\u201d and \u201cp-value\u201d add jargon."
+      }
+    },
+    {
+      "experiment": 6,
+      "name": "Onboarding checklist style",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "ship",
+        "variant": "variant_b"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "variant_b",
+        "reason": "clear_winner"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 3.6,
+      "readout": {
+        "headline": "Ship variant_b: it clearly beat control on Invoice sent without hurting support tickets.",
+        "decision": "ship",
+        "variant": "variant_b",
+        "summary": "We tested three onboarding checklist styles: control, variant_a, and variant_b, split roughly evenly across users. After 27 days, variant_b reached a 13.51% Invoice sent rate versus 10.00% for control, a lift of 35.5%, and had a 99.6% chance of being the best variant. Support tickets opened did not get worse for either variant, so no guardrail blocked the decision. Variant_b clears the win threshold and the minimum lift worth shipping, so the code recommends shipping it.",
+        "details": [
+          "Invoice sent rate: variant_b 13.51% vs control 10.00% (lift 35.5%, 95% interval 13.2% to 60.9%)",
+          "Chance of being best on Invoice sent: variant_b 99.6%, variant_a 0.4%, control 0.0%",
+          "Variant_a Invoice sent rate was 10.77%, with a lift of 8.1% that is not statistically clear",
+          "Support tickets opened: variant_b 1.44% vs control 1.50%, no increase",
+          "Runtime was 27 days with 1,940 to 2,000 users per variant",
+          "Users who saw more than one variant: 0.0%"
+        ],
+        "next_step": "Roll out variant_b to all users as the onboarding checklist style."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The decision is clear from the first line, and the key results and support-ticket safeguard are explained without contradicting it."
+      }
+    },
+    {
+      "experiment": 7,
+      "name": "Draft with AI button color",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "no_clear_winner"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 3.4,
+      "readout": {
+        "headline": "Keep the current blue AI button: the test color showed no reliable difference after 28 days.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "We tested a different color for the Draft with AI button against the current control over 28 days, with 3,000 users in each group. The test variant converted slightly more users on the primary metric, invoice sent, but no variant reached the 95% chance-of-being-best bar needed to call a winner. The test variant's chance of being best was 73.3%, well short of the required 95%, and its lift interval spans from a loss to a gain. Because there is no reliable difference, the decision is to keep the control.",
+        "details": [
+          "Invoice sent rate: control 10%, test 10.5%",
+          "Test lift vs control: 5.2% (95% interval -10% to 21.8%)",
+          "Chance of being best: control 26.7%, test 73.3% (needed 95%)",
+          "Support tickets opened: control 2%, test 2.03%, no clear change",
+          "Users who saw both variants: 0%, sample ratio check passed"
+        ],
+        "next_step": "The control stays live for all users and the team can choose a new test idea for this button."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision is clear from the first line and supported by the key numbers, though terms like \u201clift interval\u201d and \u201csample ratio check\u201d add unnecessary jargon."
+      }
+    },
+    {
+      "experiment": 8,
+      "name": "Reports home redesign",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "invalid",
+        "variant": null
+      },
+      "decided": {
+        "decision": "invalid",
+        "variant": null,
+        "reason": "multi_variant_exposure"
+      },
+      "decision_correct": true,
+      "asked_for_approval": false,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 3.0,
+      "readout": {
+        "headline": "No decision yet: the Reports home redesign test is invalid because too many users saw both versions.",
+        "decision": "invalid",
+        "variant": null,
+        "summary": "The Reports home redesign test split users evenly between the current control and the redesigned test version over 28 days. About 7.4% of users, 400 people, saw more than one variant, which is above the 5% limit, so users were mixed across groups. Because of this contamination, the results cannot be trusted, even though the test version looked better on invoice sending. No variant is declared a winner.",
+        "details": [
+          "Invoice sent rate: control 10%, test 13%",
+          "Users who saw more than one variant: 400 (7.4%), above the 5% limit",
+          "Chance of being best: test 100%, control 0%",
+          "Support tickets opened rate: control 2%, test 1.96%, no meaningful difference"
+        ],
+        "next_step": "The team will need to fix the variant assignment so users see only one version, then rerun the experiment before drawing conclusions."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision and next step are clear, but the unexplained \u201cchance of being best: 100%\u201d could confuse readers when no winner is being declared."
+      }
+    },
+    {
+      "experiment": 9,
+      "name": "Default due date of 15 days instead of 30",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "lift_below_minimum"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 3.5,
+      "readout": {
+        "headline": "Keep the current 30-day default due date; the 15-day test is likely better but the lift is below the 10% minimum worth shipping.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "We tested a default invoice due date of 15 days against the current 30 days over a 32-day run with 30,000 users in each group. The 15-day test lifted invoices sent from a 10% rate to 10.5%, and there is a 97.8% chance it is better than control. However, the estimated lift is only 5%, below the 10% minimum lift worth shipping, so the decision is to keep the control. Support ticket rates were essentially unchanged between the two versions.",
+        "details": [
+          "Invoice sent rate: control 10% vs test 10.5%",
+          "Estimated lift vs control: 5% (95% interval 0.1% to 10%)",
+          "Chance test is better than control: 97.8%",
+          "Minimum lift worth shipping: 10%",
+          "Support tickets opened: control 2% vs test 2.03%, with no meaningful change",
+          "Runtime: 32 days, with 0% of users seeing more than one variant"
+        ],
+        "next_step": "The default due date stays at 30 days and the experiment is closed."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The first line gives a clear decision and plain-English reason, and the key results support it without contradiction."
+      }
+    },
+    {
+      "experiment": 1,
+      "name": "Invoice template gallery",
+      "approver": "dana",
+      "approved": true,
+      "expected": {
+        "decision": "ship",
+        "variant": "test"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "test",
+        "reason": "clear_winner"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 4.6,
+      "readout": {
+        "headline": "Ship the test variant of the invoice template gallery: it clearly beats control on invoices sent with no guardrail harm.",
+        "decision": "ship",
+        "variant": "test",
+        "summary": "We tested a new invoice template gallery against the current experience, splitting users 50/50 over 28 days. The test variant raised the rate of users sending an invoice from 10% to 13%, and the chance it is the best option is 100%. Refund requests, our guardrail metric, did not get worse in a meaningful way. The decision to ship follows the team's rules: a clear win on the primary metric with no guardrail degradation.",
+        "details": [
+          "Invoice sent rate: control 10% (300 of 3000) vs test 13% (390 of 3000)",
+          "Lift vs control: 30.2% (95% range 12.3% to 49.7%)",
+          "Chance of being best: test 100%, control 0%",
+          "Refunds requested: control 1% vs test 1.03%, not a meaningful increase (chance worse 55.5%)",
+          "Runtime 28 days; no users saw more than one variant"
+        ],
+        "next_step": "The test template gallery will be rolled out to all users in place of the control experience."
+      }
+    }
+  ]
+}

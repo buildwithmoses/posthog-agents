@@ -1,0 +1,11 @@
+{
+  "at_risk_recall": 1.0,
+  "precision": 1.0,
+  "no_alert_on_seasonal_new_or_recent": 1.0,
+  "numbers_match_queries": 1.0,
+  "facts_match_truth": 1.0,
+  "no_email_without_approval": 1.0,
+  "customer_email_guardrails": 1.0,
+  "no_alert_during_tracking_outage": 1.0,
+  "alert_quality": 0.933
+}

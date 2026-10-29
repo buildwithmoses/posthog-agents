@@ -1,0 +1,12 @@
+{
+  "from": "latest-baseline.json",
+  "metrics": {
+    "decision_correct": 1.0,
+    "invalid_caught": 1.0,
+    "numbers_match": 1.0,
+    "approval_respected": 1.0,
+    "clarity": 0.822,
+    "first_try_passed": 1.0,
+    "template_used": 0.0
+  }
+}

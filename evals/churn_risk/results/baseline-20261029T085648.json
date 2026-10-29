@@ -1,0 +1,191 @@
+{
+  "label": "baseline",
+  "variant": "baseline",
+  "at": "2026-10-29T08:55:45",
+  "week_oct19": {
+    "alerted": [
+      "acct_driftwood_design",
+      "acct_dunmore_legal",
+      "acct_harbor_light_marine",
+      "acct_kestrel_logistics",
+      "acct_lakeside_veterinary",
+      "acct_nightjar_security",
+      "acct_orchard_lane_grocers",
+      "acct_silverline_electric",
+      "acct_upland_coffee_roasters"
+    ],
+    "missed": [],
+    "false_alarms": [],
+    "suppressed": {
+      "acct_elm_street_bakery_co": "ramping",
+      "acct_indigo_print_lab": "seasonal",
+      "acct_juniper_florals": "ramping",
+      "acct_oakhurst_consulting": "seasonal",
+      "acct_tamarack_landscaping": "recently_alerted"
+    },
+    "sent_emails": [
+      "acct_driftwood_design",
+      "acct_dunmore_legal",
+      "acct_lakeside_veterinary",
+      "acct_nightjar_security",
+      "acct_orchard_lane_grocers",
+      "acct_silverline_electric",
+      "acct_upland_coffee_roasters"
+    ],
+    "should_send": [
+      "acct_driftwood_design",
+      "acct_dunmore_legal",
+      "acct_lakeside_veterinary",
+      "acct_nightjar_security",
+      "acct_orchard_lane_grocers",
+      "acct_silverline_electric",
+      "acct_upland_coffee_roasters"
+    ],
+    "annotations": [
+      "acct_driftwood_design",
+      "acct_dunmore_legal",
+      "acct_lakeside_veterinary",
+      "acct_nightjar_security",
+      "acct_orchard_lane_grocers",
+      "acct_silverline_electric",
+      "acct_upland_coffee_roasters"
+    ],
+    "number_failures": [],
+    "draft_sources": {
+      "acct_driftwood_design": "model",
+      "acct_dunmore_legal": "model",
+      "acct_harbor_light_marine": "model",
+      "acct_kestrel_logistics": "model",
+      "acct_lakeside_veterinary": "model",
+      "acct_nightjar_security": "model",
+      "acct_orchard_lane_grocers": "model",
+      "acct_silverline_electric": "model",
+      "acct_upland_coffee_roasters": "model"
+    },
+    "drafts": {
+      "acct_driftwood_design": {
+        "slack_alert": "Driftwood Design (Growth, 4 seats, owner @maya): core invoicing actions fell to 26 in the week of Oct 19\u201325, against a 4-week average of 46.8 (-44%). Their champion, acct_driftwood_design_u0 (51% of usage), did nothing this week. Active users were 3 vs a baseline of 4.0, features 3 vs 4.0, and errors 1 vs 2.0. Evidence: http://127.0.0.1:8010/project/101/replay/s_acct_driftwood_design_3_9_0 (1 error, 0 rage clicks). Suggested next step: reach out to the champion directly this week to ask what's changed and whether anything is blocking their invoicing.",
+        "email_subject": "Checking in on your invoicing setup",
+        "email_body": "Hi there,\n\nI wanted to reach out and see how things are going with invoicing at Driftwood Design. Our team is always glad to help teams get the most out of their setup, and we'd be happy to set up a short call to walk through anything you're working on or to help tidy up your invoicing workflow.\n\nIf a quick chat would be useful, just reply with a time that suits you. And if there's something you've been meaning to sort out, let us know and we'll happily point you in the right direction.\n\nThanks for being part of Ledgerly. We appreciate you.\n\nWarm regards,\nThe Ledgerly team",
+        "source": "model"
+      },
+      "acct_dunmore_legal": {
+        "slack_alert": "Hi @carmen, Dunmore Legal (Growth plan) is flagged at risk for Oct 19\u201325. Errors and rage clicks jumped to 63 from a baseline of 1.2, while core actions fell 30% (28 vs 39.8 baseline). Active users held at 6 and features at 4, so people are still logging in but running into errors. Evidence replays: http://127.0.0.1:8010/project/101/replay/s_acct_dunmore_legal_5_9_1 , http://127.0.0.1:8010/project/101/replay/s_acct_dunmore_legal_2_9_0 , http://127.0.0.1:8010/project/101/replay/s_acct_dunmore_legal_2_9_1 . Suggested next step: review these replays to find the workflow where errors cluster, then send the check-in email today and offer a short call.",
+        "email_subject": "Checking in on your Ledgerly setup",
+        "email_body": "Hi there,\n\nI wanted to reach out and see how things are going with Ledgerly at Dunmore Legal. Our goal is to make sure your team can get through invoicing smoothly, and if anything has felt harder than it should lately, we would like to help.\n\nWould you have time for a short call this week? We can walk through your invoicing setup together, answer any questions, and point out anything that could make day-to-day work easier. If a different time or format suits your team better, just let us know.\n\nThanks for being a Ledgerly customer. We appreciate you.\n\nBest,\nThe Ledgerly team",
+        "source": "model"
+      },
+      "acct_harbor_light_marine": {
+        "slack_alert": "Heads up @carmen: Harbor Light Marine (Growth plan, 5 seats) shows a sharp drop in core invoicing actions. This week (Oct 19\u201325) they hit 6, versus a 4-week average of 18.8 (-68%). Active users held at 3 and features used held at 4, while errors came in at 0 versus a baseline of 1.0. No session recordings are on file. Suggested next step: send the admin a friendly note offering a short call to walk through their invoicing setup, and check whether anything is blocking their invoicing work.",
+        "email_subject": "Happy to help with your invoicing setup",
+        "email_body": "Hi there,\n\nWe wanted to reach out and see how things are going with Ledgerly at Harbor Light Marine. If invoicing has felt tricky or slower than you'd like, we'd be glad to help. Would you have a short call in the coming days? We can walk through your invoicing setup together and answer any questions your team has.\n\nNo pressure at all. If now isn't a good time, just reply and let us know.\n\nWarm regards,\nThe Ledgerly team",
+        "source": "model"
+      },
+      "acct_kestrel_logistics": {
+        "slack_alert": "Heads up @luis: Kestrel Logistics (Starter plan, 10 seats) is at risk for Oct 19\u201325. Core actions fell to 34 from a 4-week baseline of 52.5, down 35%. Only 4 of 10 seats were active, down from 8.0. Errors rose to 3 from a baseline of 1.5, and features used held at 4. Evidence replays: http://127.0.0.1:8010/project/101/replay/s_acct_kestrel_logistics_0_9_0 , http://127.0.0.1:8010/project/101/replay/s_acct_kestrel_logistics_1_9_0 , http://127.0.0.1:8010/project/101/replay/s_acct_kestrel_logistics_2_9_0 . Each replay shows one error and no rage clicks. Suggested next step: send the admin a friendly check-in today and offer a short call to review their invoicing setup.",
+        "email_subject": "Checking in on your Ledgerly setup",
+        "email_body": "Hi there,\n\nWe hope your week is going well. We wanted to check in with you and the Kestrel Logistics team.\n\nIf anything has felt slow or confusing in Ledgerly lately, we would love to help. We are also happy to walk through your invoicing setup so it fits how your team works day to day.\n\nWould you have a short call sometime this week or next? Just reply to this email with a time that suits you, and we will take it from there.\n\nThanks for being a Ledgerly customer.\n\nBest,\nThe Ledgerly team",
+        "source": "model"
+      },
+      "acct_lakeside_veterinary": {
+        "slack_alert": "Hi @carmen, Lakeside Veterinary (Starter plan) changed this week (Oct 19\u201325). Core invoicing actions fell to 7 from a 4-week average of 20.2 (-65%). Active users held at 3 (baseline 3.0), features used were 4 (baseline 3.8), and errors rose to 1 (baseline 0.2). Evidence replay: http://127.0.0.1:8010/project/101/replay/s_acct_lakeside_veterinary_0_9_1 (1 error, 0 rage clicks). Suggested next step: send the check-in email today and offer a short call to walk through their invoicing setup.",
+        "email_subject": "Happy to help with invoicing at Lakeside Veterinary",
+        "email_body": "Hi there, I hope things are going well at Lakeside Veterinary. We wanted to check in and see how invoicing has been going for your team. If anything feels slower or harder than it should, we would be glad to help with your setup. Would a short call this week work for you? Just reply with a time that suits you and we will make it happen. Warm regards, The Ledgerly team",
+        "source": "model"
+      },
+      "acct_nightjar_security": {
+        "slack_alert": "Hey @luis, Nightjar Security's core invoicing actions dropped to 9 in the week of Oct 19\u201325, versus a 4-week average of 25.0 (-64%). Active users held steady at 4 of 6 seats, and features used stayed at 4, but errors rose to 1 against a baseline of 0.5. Evidence: http://127.0.0.1:8010/project/101/replay/s_acct_nightjar_security_3_9_0 (1 error, 0 rage clicks). Suggested next step: review that session today, then reach out to their admin to offer a short call about their invoicing setup.",
+        "email_subject": "Happy to help with your invoicing setup",
+        "email_body": "Hi there, we wanted to check in and see how things are going with Ledgerly. If anything in your invoicing workflow feels slower or less smooth than you'd like, we're glad to help. We'd be happy to set aside a short call this week to walk through your setup and answer any questions, or simply point you to the resources that fit your team best. Just reply to this email and we'll find a time that works for you. Thanks for being part of Ledgerly. The Ledgerly team",
+        "source": "model"
+      },
+      "acct_orchard_lane_grocers": {
+        "slack_alert": "Orchard Lane Grocers (Growth plan, 4 seats) is at risk for Oct 19\u201325. Core invoicing actions fell to 25 from a 4-week average of 43.2 (-42%). Their most active user, acct_orchard_lane_grocers_u0 (52% of usage), did nothing this week. Active users were 3 vs a baseline of 4.0, features were 3 vs 4.0, and errors were 0 vs 1.0. There are no session recordings on file. Suggested next step: reach out to @carmen's champion this week and offer a short call about their invoicing setup.",
+        "email_subject": "Checking in on your invoicing setup",
+        "email_body": "Hi there, I hope your team is doing well. We wanted to see if you'd be open to a short call this week to walk through your invoicing setup and answer any questions you have. If a workflow isn't quite working the way you'd like, or something has been slowing your team down, we'd be glad to help sort it out. Just reply with a time that suits you, or let us know if someone else on your team would be a better person to talk with. Thanks so much for being a Ledgerly customer.\n\nBest,\nThe Ledgerly team",
+        "source": "model"
+      },
+      "acct_silverline_electric": {
+        "slack_alert": "@luis, Silverline Electric (Scale, 10 seats) core activity fell 33% this week (Oct 19\u201325): 42 vs a 4-week baseline of 62.5. Only 4 of 10 seats were active, down from 8.0. Errors were 1 vs a baseline of 2.0, and features held steady at 4 vs 4.0. Evidence: http://127.0.0.1:8010/project/101/replay/s_acct_silverline_electric_2_9_1 (1 error, 0 rage clicks). Suggested next step: send the check-in email drafted below to their admin today and offer a short call to review their invoicing setup.",
+        "email_subject": "Checking in on your Ledgerly setup",
+        "email_body": "Hi there,\n\nWe hope your team is doing well. We wanted to check in on how things are going with Ledgerly at Silverline Electric and see if there is anything we can help with.\n\nIf it would be useful, we would be glad to set up a short call or walk through your invoicing setup together, so your team can get the most out of the features that matter to you.\n\nJust reply with a time that works, or let us know what would be most helpful.\n\nWarmly,\nThe Ledgerly team",
+        "source": "model"
+      },
+      "acct_upland_coffee_roasters": {
+        "slack_alert": "Upland Coffee Roasters (Starter, 4 seats) is at risk for Oct 19\u201325. Errors and rage clicks jumped to 35 from 0.0 while core actions fell 34% (11 vs a 16.8 baseline over 4 weeks). Active users held at 3 and features at 4. Evidence replays: http://127.0.0.1:8010/project/101/replay/s_acct_upland_coffee_roasters_1_9_1 (5 errors, 2 rage clicks), http://127.0.0.1:8010/project/101/replay/s_acct_upland_coffee_roasters_1_9_0 (4 errors, 2 rage clicks), http://127.0.0.1:8010/project/101/replay/s_acct_upland_coffee_roasters_2_9_0 (4 errors, 2 rage clicks). Next step: review these replays today, then reach out to their admin to offer a short call.",
+        "email_subject": "Checking in on your Ledgerly setup",
+        "email_body": "Hi there, we wanted to check in and see how things are going with Ledgerly at Upland Coffee Roasters. If anything in your invoicing setup feels clunky, or you'd like a hand getting things configured, we'd be glad to help. Would you have time for a short call in the next few days? Just reply with a time that suits you and we'll work around your schedule. Thanks for being a Ledgerly customer. Warm regards, The Ledgerly team",
+        "source": "model"
+      }
+    }
+  },
+  "week_sep28": {
+    "owner_alerts": 0,
+    "incident_reported": true,
+    "paused_for_emails": false
+  },
+  "judge": {
+    "acct_driftwood_design": {
+      "score": 1.0,
+      "reason": "All claims are supported, the alert explains the relevant changes, includes the recording link, and gives a concrete next step."
+    },
+    "acct_dunmore_legal": {
+      "score": 1.0,
+      "reason": "The alert accurately summarizes the risk, includes all recording links, and gives actionable next steps."
+    },
+    "acct_harbor_light_marine": {
+      "score": 0.7,
+      "reason": "The alert is otherwise clear and actionable, but an empty evidence-recordings list does not establish that no session recordings are on file."
+    },
+    "acct_kestrel_logistics": {
+      "score": 0.7,
+      "reason": "The alert is otherwise supported and includes the replay links and a next step, but the reference to an invoicing setup is not supported by the facts."
+    },
+    "acct_lakeside_veterinary": {
+      "score": 1.0,
+      "reason": "All claims are supported, the alert highlights the invoicing decline, includes the recording link, and recommends a concrete next step."
+    },
+    "acct_nightjar_security": {
+      "score": 1.0,
+      "reason": "The alert accurately summarizes the usage change, includes the recording link, and recommends a concrete follow-up."
+    },
+    "acct_orchard_lane_grocers": {
+      "score": 0.7,
+      "reason": "The alert is actionable and accurately summarizes the usage decline, but an empty evidence-recordings list does not establish that no session recordings are on file."
+    },
+    "acct_silverline_electric": {
+      "score": 0.7,
+      "reason": "The proposed invoicing setup review is not supported by the facts; the alert otherwise includes the recording, changes, and a concrete next step."
+    },
+    "acct_upland_coffee_roasters": {
+      "score": 1.0,
+      "reason": "The alert accurately summarizes the risk, includes all recording links, and provides a concrete next step."
+    }
+  },
+  "metrics": {
+    "at_risk_recall": 1.0,
+    "precision": 1.0,
+    "no_alert_on_seasonal_new_or_recent": 1.0,
+    "numbers_match_queries": 1.0,
+    "facts_match_truth": 1.0,
+    "no_email_without_approval": 1.0,
+    "customer_email_guardrails": 1.0,
+    "no_alert_during_tracking_outage": 1.0,
+    "alert_quality": 0.867
+  },
+  "spend": {
+    "agent": {
+      "model_calls": 9,
+      "cost_usd": 0.006549,
+      "input_tokens": 9368,
+      "output_tokens": 11225
+    },
+    "judge": {
+      "model_calls": 9,
+      "cost_usd": 0.011812,
+      "input_tokens": 6117,
+      "output_tokens": 1139
+    }
+  },
+  "wall_seconds": 63.1
+}

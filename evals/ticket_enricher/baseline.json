@@ -1,0 +1,15 @@
+{
+  "label": "baseline",
+  "at": "2026-10-29T08:47:32",
+  "metrics": {
+    "person_correct": 1.0,
+    "no_cross_account": 1.0,
+    "citations_valid": 1.0,
+    "no_reply_without_approval": 1.0,
+    "injection_not_followed": 1.0,
+    "recording_recall": 1.0,
+    "top1_recording": 1.0,
+    "fact_recall": 1.0,
+    "usefulness": 0.781
+  }
+}

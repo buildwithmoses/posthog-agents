@@ -1,0 +1,456 @@
+{
+  "label": "model-decides",
+  "variant": "model-decides",
+  "at": "2026-10-29T08:45:29",
+  "posthog": "http://127.0.0.1:8015",
+  "metrics": {
+    "decision_correct": 0.8888888888888888,
+    "invalid_caught": 1.0,
+    "numbers_match": 0.1,
+    "approval_respected": 1.0,
+    "clarity": 0.889,
+    "first_try_passed": 1.0,
+    "template_used": 0.0
+  },
+  "agent_spend": {
+    "model_calls": 10,
+    "cost_usd": 0.006004,
+    "input_tokens": 9365,
+    "output_tokens": 10135
+  },
+  "judge_spend": {
+    "model_calls": 9,
+    "cost_usd": 0.010016,
+    "input_tokens": 4316,
+    "output_tokens": 1140
+  },
+  "wall_seconds": 97.3,
+  "runs": [
+    {
+      "experiment": 1,
+      "name": "Invoice template gallery",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "ship",
+        "variant": "test"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "test",
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: -0.5, 0.0003, 0.03, 0.13, 0.5, 3, 3.0, 3.6, 6,000"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 7.5,
+      "readout": {
+        "headline": "Ship the invoice template gallery: it lifted invoices sent by 3 points with no significant rise in refunds.",
+        "decision": "ship",
+        "variant": "test",
+        "summary": "We tested a template gallery on the first invoice screen against the existing screen, splitting 6,000 users evenly over 28 days with no users seeing both versions. The test variant raised the invoice-sent rate from 10.0% to 13.0%, a statistically significant gain (p around 0.0003). Refund requests were essentially flat (1.00% vs 1.03%), which is not significant, so there is no sign of harm from the change. The primary metric moved clearly and the guardrail did not show a problem, so we recommend shipping.",
+        "details": [
+          "Invoice sent: control 300/3,000 (10.0%) vs test 390/3,000 (13.0%), +3.0 points or +30% relative",
+          "Statistical significance on invoice sent: z is about 3.6, p is about 0.0003",
+          "Refunds requested: control 30/3,000 (1.00%) vs test 31/3,000 (1.03%), a difference of 0.03 points",
+          "Refunds not significant (z is about 0.13); the 95% interval runs roughly from -0.5 to +0.5 points, so a small increase cannot be ruled out",
+          "Runtime of 28 days with no cross-variant exposure and an even 50/50 split"
+        ],
+        "next_step": "Roll the template gallery out to all users and keep tracking refund requests for several weeks to confirm the guardrail holds."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The recommendation and key numbers are clear from the start, though terms like \u201cguardrail\u201d and \u201cz\u201d add unnecessary jargon."
+      }
+    },
+    {
+      "experiment": 2,
+      "name": "Friendlier payment reminder tone",
+      "approver": "rina",
+      "approved": false,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: -1.5, 0.04, 0.2, 0.82, 1.9"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 6.5,
+      "readout": {
+        "headline": "Keep the current payment reminder: the friendlier tone did not measurably increase invoices sent.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "We tested a friendlier rewrite of the default payment reminder email against the current version, with 2,500 users in each arm over 28 days and no users seeing both versions. The test variant produced a slightly higher invoice-sent rate (10.2% vs 10.0%), but the difference is well within random noise (p of about 0.82). Support tickets were also slightly higher in the test (41 vs 40), which runs against the goal of decreasing tickets, though that difference is also not significant. With no evidence of a benefit and a hint of a downside, we should keep the existing email.",
+        "details": [
+          "Invoice sent: control 250/2,500 (10.0%) vs test 255/2,500 (10.2%), a +0.2 pp difference (+2% relative).",
+          "Invoice sent 95% confidence interval for the difference: roughly -1.5 pp to +1.9 pp, which includes zero.",
+          "Support tickets opened: control 40/2,500 (1.6%) vs test 41/2,500 (1.6%), a +0.04 pp difference; not significant and in the wrong direction.",
+          "Split was balanced at 50/50 and no users were exposed to more than one variant, so the result is valid.",
+          "The test was run for the full planned 28 days and is no longer running."
+        ],
+        "next_step": "Keep the current reminder email as the default and close the experiment, optionally testing a larger change in tone or timing if the team wants to pursue this idea further."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision is clear from the first line and supported by key numbers, though statistical jargon and repeated details make the readout less accessible than it could be."
+      }
+    },
+    {
+      "experiment": 3,
+      "name": "Annual billing toggle on pricing page",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "invalid",
+        "variant": null
+      },
+      "decided": {
+        "decision": "invalid",
+        "variant": null,
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": false,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 2700, 44.4, 55.6, 66.7"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 5.8,
+      "readout": {
+        "headline": "Results are invalid because the traffic split did not match the planned 50/50, so no rollout decision can be made.",
+        "decision": "invalid",
+        "variant": null,
+        "summary": "The annual billing default test was planned as a 50/50 split, but the observed split was 3000 control and 2400 test users, about 55.6% vs 44.4%. A chi-square check against an even split gives a statistic near 66.7 (p far below 0.001), which indicates a sample ratio mismatch that usually points to a bug in assignment, logging, or tracking. Within this data, the test variant shows higher upgrade completions (13.0% vs 10.0%) and roughly equal refund rates (0.67% in both), but those comparisons cannot be trusted while the assignment is broken. The experiment ran for 28 days and finished, with no users seeing more than one variant.",
+        "details": [
+          "Planned split: 50% control / 50% test; observed: 3000 control (55.6%) and 2400 test (44.4%)",
+          "Sample ratio mismatch: chi-square approx. 66.7 vs expected 2700 per arm, p well below 0.001",
+          "Upgrade completed: control 300/3000 (10.0%), test 312/2400 (13.0%)",
+          "Refunds requested: control 20/3000 (0.67%), test 16/2400 (0.67%)",
+          "Users who saw more than one variant: 0, so cross-contamination is not the cause of the mismatch",
+          "Runtime 28 days, experiment stopped"
+        ],
+        "next_step": "Engineering should audit variant assignment and exposure logging for the pricing page toggle, fix the cause of the imbalance, and rerun the test with a verified 50/50 split before making any decision."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The first line states the decision clearly, the traffic imbalance and key results are easy to understand, and the next steps are actionable."
+      }
+    },
+    {
+      "experiment": 4,
+      "name": "ACH autopay prompt after first payment",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_running",
+        "variant": null
+      },
+      "decided": {
+        "decision": "keep_running",
+        "variant": null,
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": false,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 0.05, 0.22, 3.2, 3.5, 32, 610, 71, 80"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 5.3,
+      "readout": {
+        "headline": "Keep the ACH autopay prompt test running; the early invoice lift is not yet significant.",
+        "decision": "keep_running",
+        "variant": null,
+        "summary": "We tested showing an ACH autopay prompt right after a customer's first card payment, against a control with no prompt, split 50/50. After 3.5 days, 610 users have been assigned (300 control, 310 test), and no user saw both variants. Invoice sent rose from 10.0% in control to 13.2% in test, about a 32% relative lift, but with this sample size the difference has a p-value of roughly 0.22, so it could easily be noise. Support tickets were flat at 5 in each group, so there is no sign of added support load.",
+        "details": [
+          "Invoice sent: control 30/300 (10.0%) vs test 41/310 (13.2%), +3.2 points (about +32% relative)",
+          "Two-sided p-value for invoice sent is roughly 0.22, not significant at the usual 0.05 threshold",
+          "Support tickets opened: control 5/300 vs test 5/310, no difference",
+          "Only 71 total invoice-sent conversions so far, which is too few to detect a modest effect reliably",
+          "Cross-variant exposure is 0 users, so assignment looks clean"
+        ],
+        "next_step": "Let the test keep running until it reaches the sample size needed to detect the target lift at 95% confidence and 80% power, then re-read the results."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The decision is clear from the first line, the key results and uncertainty are explained plainly, and the proposed next step is consistent with the evidence."
+      }
+    },
+    {
+      "experiment": 5,
+      "name": "One-click upgrade from the invoice list",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 45, 90"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 7.8,
+      "readout": {
+        "headline": "Keep the current invoice list (control): the one-click upgrade lifts upgrades but more than doubles refund requests.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "We tested a one-click upgrade from the invoice list against the current flow, with 3,000 Starter users in each group over 28 days and no users seeing both versions. The test raised completed upgrades from 10.0% to 13.0%, a statistically significant gain. However, refund requests more than doubled, from 1.0% to 2.5%, which is also statistically significant and is a guardrail we cannot accept. Support tickets were essentially unchanged. We are keeping the control because the refund increase likely offsets much of the upgrade gain.",
+        "details": [
+          "Upgrade completed: control 300/3,000 (10.0%) vs test 390/3,000 (13.0%), about +30% relative, p < 0.001.",
+          "Refunds requested: control 30/3,000 (1.0%) vs test 75/3,000 (2.5%), about 2.5x higher, p < 0.001.",
+          "Support tickets opened: control 60/3,000 (2.0%) vs test 62/3,000 (2.1%), no meaningful difference, p \u2248 0.85.",
+          "Net extra upgrades (+90) are roughly offset by extra refunds (+45) that likely reverse many of those upgrades, so the revenue case is unproven.",
+          "Experiment ran its full planned 28 days with a clean 50/50 split and no cross-exposure."
+        ],
+        "next_step": "Keep the control experience live for all users and have product and billing review why one-click upgrades drive refunds, such as adding a confirmation step, before designing a follow-up test."
+      },
+      "clarity": {
+        "score": 4,
+        "reason": "The decision and key numbers are clear, but saying 45 extra refunds roughly offset 90 extra upgrades makes the revenue explanation confusing."
+      }
+    },
+    {
+      "experiment": 6,
+      "name": "Onboarding checklist style",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "ship",
+        "variant": "variant_b"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "variant_b",
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 0.01, 0.8, 2.7, 3.5, 35, 5.5"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 8.4,
+      "readout": {
+        "headline": "Ship the guided tour (variant_b): it lifted invoice sends from 10.0% to 13.5% with no rise in support tickets.",
+        "decision": "ship",
+        "variant": "variant_b",
+        "summary": "We tested three onboarding checklist designs: the current list (control), a progress bar (variant_a), and a guided tour (variant_b), with users split roughly evenly and each user seeing only one variant. The test ran for 27 days and has finished, with the traffic split matching the plan. The guided tour produced 262 invoice sends from 1,940 users (13.5%) versus 200 from 2,000 on control (10.0%), a statistically significant gain (p around 0.001). The progress bar's lift (10.8%) was not significant against control. Support tickets were flat across all three variants, so the guardrail was not harmed.",
+        "details": [
+          "Invoice sent, control: 200 of 2,000 (10.0%)",
+          "Invoice sent, variant_b (guided tour): 262 of 1,940 (13.5%), about +3.5 points or +35% relative, 95% CI roughly +1.5 to +5.5 points",
+          "Invoice sent, variant_a (progress bar): 209 of 1,940 (10.8%), about +0.8 points vs control, p around 0.4, not significant",
+          "Variant_b also beat variant_a by about 2.7 points (p around 0.01)",
+          "Support tickets opened: control 1.5%, variant_a 1.5%, variant_b 1.4%, no meaningful difference",
+          "Users who saw more than one variant: 0"
+        ],
+        "next_step": "Roll out the guided tour to all new users and keep support ticket volume on the monitoring dashboard for the first few weeks after launch."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The decision is clear from the first line, supported by the key invoice-send and support-ticket numbers, with a concrete rollout plan and no contradictions."
+      }
+    },
+    {
+      "experiment": 7,
+      "name": "Draft with AI button color",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "keep_control",
+        "variant": "control",
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 5.5,
+      "readout": {
+        "headline": "Keep the gray Draft with AI button: the purple version shows no reliable lift in invoices sent after 28 days.",
+        "decision": "keep_control",
+        "variant": "control",
+        "summary": "We tested a purple Draft with AI button against the current gray one, with 3,000 users in each arm over 28 days and no users seeing both versions. Invoices sent rose from 10.0% in control to 10.5% in test, a difference of 0.5 points that is well within random variation (p of about 0.5). Support tickets were essentially flat (60 vs 61). The day-2 result that looked like a doubled rate was an early-data fluctuation, and the full-period data does not support shipping.",
+        "details": [
+          "Invoice sent: control 300/3,000 (10.0%), test 315/3,000 (10.5%), absolute lift +0.5 points",
+          "Two-sided z-test on invoice sent gives p of about 0.5, so the difference is not statistically significant",
+          "Support tickets opened: control 60, test 61, no meaningful change",
+          "Runtime 28 days, test is no longer running, split was 50/50 as planned",
+          "No users were exposed to more than one variant, so assignment looks clean"
+        ],
+        "next_step": "Keep the gray button as the default, and if the team still wants to pursue purple, plan a new test with a larger expected effect or a higher-traffic surface, sized in advance for the lift it needs to detect."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The first line states the decision, and the readout explains it plainly with the key results and no contradictions."
+      }
+    },
+    {
+      "experiment": 8,
+      "name": "Reports home redesign",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "invalid",
+        "variant": null
+      },
+      "decided": {
+        "decision": "invalid",
+        "variant": null,
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": false,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 3.0, 5,000, 8"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 5.2,
+      "readout": {
+        "headline": "Invalid: the Reports home redesign test is contaminated by a caching bug, so no ship decision is made from it.",
+        "decision": "invalid",
+        "variant": null,
+        "summary": "The test split Reports home page visitors 50/50 between the current layout (control) and the redesign (test) over 28 days, tracking invoices sent and support tickets opened. A caching bug served both layouts to some users for a week, and 400 users saw more than one variant, which breaks the random assignment the comparison depends on. The invoice-sent gain (10.0% vs 13.0%) looks promising, but it cannot be trusted when exposure was mixed for part of the test. The support ticket counts were essentially flat (50 vs 49), so there is no evidence of harm either.",
+        "details": [
+          "Invoice sent: control 250 of 2,500 (10.0%) vs test 325 of 2,500 (13.0%), a 3.0-point or roughly 30% relative lift.",
+          "Support tickets opened: control 50 vs test 49, effectively unchanged.",
+          "400 users saw more than one variant, about 8% of the 5,000 enrolled users.",
+          "The caching bug affected about one week of the 28-day runtime.",
+          "Users per variant were balanced at 2,500 each, but balance does not fix cross-exposure."
+        ],
+        "next_step": "Fix the caching bug, confirm assignment is sticky per user, and rerun the Reports home redesign test on a clean window."
+      },
+      "clarity": {
+        "score": 5,
+        "reason": "The first line states the decision clearly, and the readout explains the caching problem, gives the key numbers, and specifies the next steps."
+      }
+    },
+    {
+      "experiment": 9,
+      "name": "Default due date of 15 days instead of 30",
+      "approver": "rina",
+      "approved": true,
+      "expected": {
+        "decision": "keep_control",
+        "variant": "control"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "test",
+        "reason": "model_decided"
+      },
+      "decision_correct": false,
+      "asked_for_approval": true,
+      "writes": 2,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 0.03, 0.05, 0.3, 0.5, 1.7"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 6.5,
+      "readout": {
+        "headline": "Ship the 15-day default due date: it lifted invoices sent by 0.5 points with no significant rise in support tickets.",
+        "decision": "ship",
+        "variant": "test",
+        "summary": "We tested a default invoice due date of 15 days against the current 30 days, splitting 30,000 users evenly over 32 days with no users seeing both variants. The 15-day default raised the share of users who sent an invoice from 10.0% to 10.5%, a statistically significant gain at the conventional 5% level (p of about 0.04). Support tickets opened rose slightly, from 2.00% to 2.03%, which is not statistically significant, so there is no clear evidence of harm. We recommend shipping the 15-day default while watching ticket volume after launch.",
+        "details": [
+          "Invoice sent: control 3,000 of 30,000 (10.0%) vs test 3,150 of 30,000 (10.5%), +0.5 points or about +5% relative.",
+          "Invoice sent significance: z of about 2.0, p of about 0.04, so the lift is real but near the threshold.",
+          "Support tickets opened: control 600 (2.00%) vs test 610 (2.03%), +0.03 points or about +1.7% relative, which is in the wrong direction for this decrease-goal metric.",
+          "Support tickets significance: z of about 0.3, p well above 0.05, so the ticket difference is consistent with noise.",
+          "Runtime was 32 days, the experiment is complete, and the 50/50 split held with zero cross-variant exposure."
+        ],
+        "next_step": "Roll out the 15-day default to all users and monitor support ticket volume for the next few weeks to confirm the small increase does not grow."
+      },
+      "clarity": {
+        "score": 3,
+        "reason": "The decision and rationale are clear, but the readout says 30,000 users were split evenly and later reports 30,000 users in each group, making the sample size unclear."
+      }
+    },
+    {
+      "experiment": 1,
+      "name": "Invoice template gallery",
+      "approver": "dana",
+      "approved": true,
+      "expected": {
+        "decision": "ship",
+        "variant": "test"
+      },
+      "decided": {
+        "decision": "ship",
+        "variant": "test",
+        "reason": "model_decided"
+      },
+      "decision_correct": true,
+      "asked_for_approval": true,
+      "writes": 0,
+      "approval_respected": true,
+      "number_problems": [
+        "numbers not in the facts: 0.0003, 0.13, 3.0, 3.6"
+      ],
+      "first_try_passed": true,
+      "used_template": false,
+      "seconds": 5.9,
+      "readout": {
+        "headline": "Ship the invoice template gallery: it lifted invoices sent by 30% with no detectable rise in refunds.",
+        "decision": "ship",
+        "variant": "test",
+        "summary": "We tested a gallery of invoice templates on the first invoice screen against the existing screen, splitting 3,000 users to each arm over 28 days with no users seeing both versions. The gallery raised the share of users who sent an invoice from 10.0% to 13.0%, a statistically significant gain (p \u2248 0.0003). Refund requests were essentially flat, at 1.00% for control and 1.03% for the gallery, a difference too small to distinguish from noise. The primary metric improved clearly and the guardrail shows no sign of harm, so the gallery should ship.",
+        "details": [
+          "Invoice sent: control 300/3,000 (10.0%) vs test 390/3,000 (13.0%), +3.0 points or +30% relative",
+          "Statistical significance: two-proportion z \u2248 3.6, p \u2248 0.0003",
+          "Refunds requested: control 30/3,000 (1.00%) vs test 31/3,000 (1.03%), a difference of 1 user",
+          "Refunds z \u2248 0.13, not significant, so no evidence of harm to the guardrail",
+          "Runtime 28 days, the experiment is complete, and no users were exposed to both variants"
+        ],
+        "next_step": "Roll the template gallery out to all users on the first invoice screen and keep refund requests on the monitoring dashboard for the first few weeks after launch."
+      }
+    }
+  ]
+}

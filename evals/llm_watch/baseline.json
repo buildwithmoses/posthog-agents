@@ -1,0 +1,13 @@
+{
+  "label": "baseline",
+  "at": "2026-10-29T08:45:22",
+  "metrics": {
+    "number_accuracy": 1.0,
+    "spike_recall": 1.0,
+    "no_false_alert": 1.0,
+    "cause_correct": 1.0,
+    "no_unapproved_flag_change": 1.0,
+    "expected_change_recognized": 1.0,
+    "alert_usefulness": 0.886
+  }
+}

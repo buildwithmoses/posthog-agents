@@ -1,0 +1,347 @@
+{
+  "label": "model-decides",
+  "variant": "model-decides",
+  "at": "2026-10-29T08:50:49",
+  "scenarios": 8,
+  "metrics": {
+    "number_accuracy": 0.5,
+    "spike_recall": 0.6,
+    "no_false_alert": 0.667,
+    "cause_correct": 0.6,
+    "no_unapproved_flag_change": 1.0,
+    "expected_change_recognized": 0.0,
+    "alert_usefulness": 0.257
+  },
+  "agent_spend": {
+    "model_calls": 12,
+    "cost_usd": 0.011853,
+    "input_tokens": 47720,
+    "output_tokens": 14162
+  },
+  "judge_spend": {
+    "model_calls": 7,
+    "cost_usd": 0.010335,
+    "input_tokens": 5740,
+    "output_tokens": 919
+  },
+  "writer_modes": {
+    "model_decides": 8
+  },
+  "wall_seconds": 217.9,
+  "per_scenario": [
+    {
+      "id": "normal",
+      "window_hours": 24,
+      "label": [],
+      "predicted": [],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [
+        "529"
+      ],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Ledgerly LLM check for 2026-04-08: no incidents. Cost ($1.00), p50/p95 latency, errors (4 of 381 calls, all 529 overloaded), and draft acceptance (60.7%) are all within the 7-day baseline range. Cost",
+      "seconds": 8.36,
+      "m": {
+        "numbers_ok": 0.0,
+        "recall": null,
+        "no_false_alert": 1.0,
+        "cause_ok": null,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 1,
+        "reason": "The alert invents that all four errors were 529 overloads; the facts provide no error codes. It also claims metrics are within the baseline range, which is not provided."
+      }
+    },
+    {
+      "id": "prompt_bloat",
+      "window_hours": 24,
+      "label": [
+        [
+          "cost_spike",
+          "prompt_bloat:reminder_email"
+        ]
+      ],
+      "predicted": [
+        [
+          "cost_spike",
+          "prompt_bloat:reminder_email"
+        ],
+        [
+          "cost_per_accepted",
+          "prompt_bloat:reminder_email"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [
+        "64"
+      ],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Theo: Draft with AI cost roughly doubled on 2026-05-08 (about $1.80 vs about $0.95 on baseline days) with flat call volume and steady acceptance (about 64%). Cost per accepted draft rose from about $0.005 to about $0.0095. The cause is prompt bloat in the",
+      "seconds": 7.01,
+      "m": {
+        "numbers_ok": 0.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 3,
+        "reason": "The cost increase, flat volume, and steady acceptance are broadly accurate. However, the alert cuts off before identifying the reminder_email prompt as the source and gives no next step."
+      }
+    },
+    {
+      "id": "provider_latency",
+      "window_hours": 24,
+      "label": [
+        [
+          "latency_spike",
+          "provider_latency:amazon-bedrock"
+        ]
+      ],
+      "predicted": [
+        [
+          "latency_spike",
+          "provider_latency:amazon-bedrock"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [
+        "2.1",
+        "2.4",
+        "4.3",
+        "09",
+        "05,"
+      ],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": {
+        "approved": false,
+        "approver": "theo"
+      },
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Theo: On 2026-06-07, claude-haiku-5.5 calls routed through amazon-bedrock slowed sharply. p50 is 8.5s vs about 2.1-2.4s in the June 1-6 baselines, and p95 is 16.4s vs about 3.2-4.3s. The anthropic provider is normal (p50 1.96s, p95 3.2s), so the slowdown looks specific to Bedrock. Cost per call, error counts, token sizes, and draft acceptance (60%, within baseline range) are all unchanged, so no cost or quality incident. The sonnet-5.5 switch annotation is dated 2026-09-05, outside this window, and no model change appears in these rows. Suggest checking Bedrock status or considering shifting traffic to anthropic while latency is elevated.",
+      "seconds": 6.64,
+      "m": {
+        "numbers_ok": 0.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 1,
+        "reason": "The Bedrock latency diagnosis is supported, but the alert invents a dated Sonnet switch annotation and baseline ranges not in the facts. It also calls draft acceptance unchanged despite a decline from 62.2% to 60.0%."
+      }
+    },
+    {
+      "id": "error_spike",
+      "window_hours": 24,
+      "label": [
+        [
+          "error_spike",
+          "error_cluster:529 overloaded_error"
+        ]
+      ],
+      "predicted": [],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": {
+        "approved": true,
+        "approver": "theo"
+      },
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "(the model returned no valid decision)",
+      "seconds": 14.14,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 0.0,
+        "no_false_alert": null,
+        "cause_ok": 0.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 1,
+        "reason": "No valid alert was produced. It missed Anthropic\u2019s 10.5% error rate (25 of 237 calls), up from 0.4%, and provided no next step."
+      }
+    },
+    {
+      "id": "overnight_noise",
+      "window_hours": 1,
+      "label": [],
+      "predicted": [
+        [
+          "latency_spike",
+          "provider_latency:anthropic"
+        ],
+        [
+          "error_spike",
+          "error_cluster:timeout"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "The",
+      "seconds": 14.96,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": null,
+        "no_false_alert": 0.0,
+        "cause_ok": null,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      }
+    },
+    {
+      "id": "intended_switch",
+      "window_hours": 24,
+      "label": [],
+      "predicted": [],
+      "expected_label": [
+        "model_switch:claude-sonnet-5.5"
+      ],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "(the model returned no valid decision)",
+      "seconds": 17.26,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": null,
+        "no_false_alert": 1.0,
+        "cause_ok": null,
+        "no_unapproved_write": 1.0,
+        "expected_ok": 0.0
+      },
+      "judge": {
+        "score": 1,
+        "reason": "No valid alert was returned, so Theo has no summary, cause, or next step."
+      }
+    },
+    {
+      "id": "unannounced_switch",
+      "window_hours": 24,
+      "label": [
+        [
+          "cost_spike",
+          "model_switch:claude-sonnet-5.5"
+        ]
+      ],
+      "predicted": [],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": {
+        "approved": true,
+        "approver": "rina"
+      },
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "(the model returned no valid decision)",
+      "seconds": 18.92,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 0.0,
+        "no_false_alert": null,
+        "cause_ok": 0.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 1,
+        "reason": "No valid alert was returned, so Theo has no summary of the 3.3\u00d7 cost increase or guidance on what to investigate."
+      }
+    },
+    {
+      "id": "acceptance_drop",
+      "window_hours": 24,
+      "label": [
+        [
+          "cost_per_accepted",
+          "acceptance_drop"
+        ]
+      ],
+      "predicted": [
+        [
+          "cost_per_accepted",
+          "acceptance_drop"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [
+        "31",
+        "58",
+        "63"
+      ],
+      "writer_mode": "model_decides",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Theo: Draft with AI acceptance fell to 96 of 311 (about 31%) on 2026-11-04, versus about 58-63% across the prior seven days. Generation cost (about $1.04), latency, error counts, token sizes and volume all look normal, so cost per accepted draft roughly doubled. No model switch or prompt bloat appears in this window, and the Sept sonnet switch annotation is outside it. The acceptance drop is the root signal; its cause isn't visible in these metrics, so check the draft UX or recent product changes.",
+      "seconds": 96.06,
+      "m": {
+        "numbers_ok": 0.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 1,
+        "reason": "The core acceptance drop and cost impact are correct, but the alert invents a prior-day range and a September Sonnet-switch annotation. It also says token sizes and prompt bloat are normal without baseline token data."
+      }
+    }
+  ]
+}

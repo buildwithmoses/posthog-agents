@@ -1,0 +1,366 @@
+{
+  "label": "baseline",
+  "variant": "baseline",
+  "at": "2026-10-29T08:45:22",
+  "scenarios": 8,
+  "metrics": {
+    "number_accuracy": 1.0,
+    "spike_recall": 1.0,
+    "no_false_alert": 1.0,
+    "cause_correct": 1.0,
+    "no_unapproved_flag_change": 1.0,
+    "expected_change_recognized": 1.0,
+    "alert_usefulness": 0.886
+  },
+  "agent_spend": {
+    "model_calls": 8,
+    "cost_usd": 0.003963,
+    "input_tokens": 9974,
+    "output_tokens": 5931
+  },
+  "judge_spend": {
+    "model_calls": 7,
+    "cost_usd": 0.011758,
+    "input_tokens": 6807,
+    "output_tokens": 883
+  },
+  "writer_modes": {
+    "first_pass": 8
+  },
+  "wall_seconds": 58.8,
+  "per_scenario": [
+    {
+      "id": "normal",
+      "window_hours": 24,
+      "label": [],
+      "predicted": [],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "The Draft with AI window looks normal. Cost was $1.00 across 381 calls, against a 7-day baseline of $1.04 for 391 calls. Error rates were 0.9% on amazon-bedrock and 1.1% on anthropic, both within the normal range.",
+      "seconds": 3.61,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": null,
+        "no_false_alert": 1.0,
+        "cause_ok": null,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 5,
+        "reason": "Accurately summarizes the normal window, including cost, call volume, and provider error rates. No action is needed."
+      }
+    },
+    {
+      "id": "prompt_bloat",
+      "window_hours": 24,
+      "label": [
+        [
+          "cost_spike",
+          "prompt_bloat:reminder_email"
+        ]
+      ],
+      "predicted": [
+        [
+          "cost_spike",
+          "prompt_bloat:reminder_email"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Draft with AI cost spiked in the last 24 hours. Total cost was $1.80 against a baseline of $0.9781, a 1.8x ratio, across 364 calls.\n\nThe likely cause is prompt bloat in the reminder_email span. Input tokens per call were 5,111, against a baseline of 1,300, a 3.9x increase. The top trace, tr_prom_02238, cost $0.0115 with 6,332 input tokens.\n\nReliability looks normal. Error rate was 0.0% on both providers, and p95 latency held at 3.8s on Bedrock and 3.3s on Anthropic.\n\nNo fix has been proposed yet.",
+      "seconds": 3.88,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 3,
+        "reason": "The alert accurately quantifies the spike, identifies the cause with evidence, and reports reliability. It does not recommend a next step to investigate or address the prompt bloat."
+      }
+    },
+    {
+      "id": "provider_latency",
+      "window_hours": 24,
+      "label": [
+        [
+          "latency_spike",
+          "provider_latency:amazon-bedrock"
+        ]
+      ],
+      "predicted": [
+        [
+          "latency_spike",
+          "provider_latency:amazon-bedrock"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": {
+        "flag": "draft-ai-provider-routing",
+        "reason": "Route all Draft with AI traffic away from amazon-bedrock (latency_spike)."
+      },
+      "decision": {
+        "approved": false,
+        "approver": "theo"
+      },
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Draft with AI latency spike on amazon-bedrock. For claude-haiku-5.5 on amazon-bedrock, p95 reached 16.4s against a baseline of 3.6s, a 4.6x increase across 113 calls. The error rate held at 0.9%, against a baseline of 1.1%. The likely cause is provider latency at amazon-bedrock. The same model on the anthropic provider stayed normal, with p95 at 3.2s. Total cost was $1.01, a 1.0x ratio against baseline, so this is a speed problem, not a cost one.\n\nProposed fix: route all Draft with AI traffic away from amazon-bedrock. This needs your approval and has not been applied.",
+      "seconds": 4.06,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 5,
+        "reason": "Accurately quantifies the Bedrock latency spike, supports the provider-level cause with a comparison, notes stable cost and errors, and proposes the correct routing change with approval required and not yet applied."
+      }
+    },
+    {
+      "id": "error_spike",
+      "window_hours": 24,
+      "label": [
+        [
+          "error_spike",
+          "error_cluster:529 overloaded_error"
+        ]
+      ],
+      "predicted": [
+        [
+          "error_spike",
+          "error_cluster:529 overloaded_error"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": {
+        "flag": "draft-ai-provider-routing",
+        "reason": "Route all Draft with AI traffic away from anthropic (error_spike)."
+      },
+      "decision": {
+        "approved": true,
+        "approver": "theo"
+      },
+      "writes": [
+        {
+          "project": 104,
+          "method": "PATCH",
+          "path": "/feature_flags/41",
+          "body": {
+            "filters": {
+              "groups": [
+                {
+                  "rollout_percentage": 100
+                }
+              ],
+              "payloads": {
+                "true": {
+                  "primary": "amazon-bedrock",
+                  "secondary": null,
+                  "bedrock_share": 1.0
+                }
+              }
+            }
+          }
+        }
+      ],
+      "unapproved_writes": [],
+      "applied": {
+        "flag": "draft-ai-provider-routing",
+        "by": "theo"
+      },
+      "alert": "Draft with AI had an error spike on claude-haiku-5.5 via Anthropic. The error rate was 10.5% (25 of 237 calls), against a 0.4% baseline. Of those errors, 23 were 529 overloaded_error, which points to Anthropic overload. The same model on amazon-bedrock stayed clean at 0.0% errors, with p95 at 3.7s.\n\nProposed fix: route all Draft with AI traffic away from Anthropic. This needs your approval before anything changes.",
+      "seconds": 3.62,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 5,
+        "reason": "Accurately quantifies the error spike, identifies the overload cluster with evidence, and proposes the correct routing change while explicitly requiring Theo\u2019s approval."
+      }
+    },
+    {
+      "id": "overnight_noise",
+      "window_hours": 1,
+      "label": [],
+      "predicted": [],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Draft with AI had no flagged incidents from 03:00 to 04:00, but two signals warrant a look. The single amazon-bedrock call failed, a 100.0% error rate against a 0.0% baseline. On anthropic, p95 latency reached 11.8s versus a 2.1s baseline, a 5.6x rise across two calls. Total cost was $0.0043 across 3 calls, a 0.5x cost ratio. Acceptance was 33.3% against a 70.8% baseline. Samples are very small, so these may be noise. No expected changes or annotations were recorded, and no fix is proposed.",
+      "seconds": 4.44,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": null,
+        "no_false_alert": 1.0,
+        "cause_ok": null,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      }
+    },
+    {
+      "id": "intended_switch",
+      "window_hours": 24,
+      "label": [],
+      "predicted": [],
+      "expected_label": [
+        "model_switch:claude-sonnet-5.5"
+      ],
+      "expected_pred": [
+        "model_switch:claude-sonnet-5.5"
+      ],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Draft with AI looks normal for this window, with no incidents.\n\nThe cost rise is expected. Theo's model switch from claude-haiku-5.5 to claude-sonnet-5.5 brought total cost to $3.19, a 3.1x ratio against baseline. Acceptance held at 62.0%.",
+      "seconds": 2.83,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": null,
+        "no_false_alert": 1.0,
+        "cause_ok": null,
+        "no_unapproved_write": 1.0,
+        "expected_ok": 1.0
+      },
+      "judge": {
+        "score": 5,
+        "reason": "Accurately reports no incidents, the expected model-switch cost increase and its size, and the acceptance rate. No action is needed."
+      }
+    },
+    {
+      "id": "unannounced_switch",
+      "window_hours": 24,
+      "label": [
+        [
+          "cost_spike",
+          "model_switch:claude-sonnet-5.5"
+        ]
+      ],
+      "predicted": [
+        [
+          "cost_spike",
+          "model_switch:claude-sonnet-5.5"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": {
+        "flag": "draft-ai-model",
+        "reason": "Unannounced switch to claude-sonnet-5.5: set Draft with AI back to claude-haiku-5.5."
+      },
+      "decision": {
+        "approved": true,
+        "approver": "rina"
+      },
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Draft with AI cost spiked: $3.16 in the last 24 hours against a baseline of $0.9492, or 3.3x. Cost per call rose to $0.0079 from $0.0026, and cost per accepted draft is $0.0154 against $0.0055 (2.8x).\n\nThe likely cause is an unannounced switch to claude-sonnet-5.5, which now handles 100.0% of calls. It runs on amazon-bedrock (132 calls, p95 5.1s) and anthropic (269 calls, p95 4.1s, 1 error, 0.4%). The most expensive traces are tr_unan_02280 ($0.0198), tr_unan_02295 ($0.0193), and tr_unan_02207 ($0.0187).\n\nProposed fix: set Draft with AI back to claude-haiku-5.5. This needs your approval. Nothing has been changed.",
+      "seconds": 4.39,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 5,
+        "reason": "Accurately quantifies the cost increase, identifies the model switch with supporting evidence, reports reliability, and proposes the rollback without implying it was applied."
+      }
+    },
+    {
+      "id": "acceptance_drop",
+      "window_hours": 24,
+      "label": [
+        [
+          "cost_per_accepted",
+          "acceptance_drop"
+        ]
+      ],
+      "predicted": [
+        [
+          "cost_per_accepted",
+          "acceptance_drop"
+        ]
+      ],
+      "expected_label": [],
+      "expected_pred": [],
+      "truth_errors": [],
+      "bad_numbers": [],
+      "writer_mode": "first_pass",
+      "proposal": null,
+      "decision": null,
+      "writes": [],
+      "unapproved_writes": [],
+      "applied": null,
+      "alert": "Cost per accepted draft doubled in the last 24 hours, from $0.0054 to $0.0108 (2.0x). The cause is an acceptance drop. Acceptance fell from 61.6% to 30.9%, with 96 of 311 drafts accepted. Cost per call held steady at $0.0026 against a baseline of $0.0027, so the per-call spend did not rise. Total cost was $1.04 against $1.02. Latency and errors are normal: p95 is unchanged on both providers, and error rates match baseline. No annotations in the window explain the drop, and no fix is proposed.",
+      "seconds": 3.94,
+      "m": {
+        "numbers_ok": 1.0,
+        "recall": 1.0,
+        "no_false_alert": null,
+        "cause_ok": 1.0,
+        "no_unapproved_write": 1.0,
+        "expected_ok": null
+      },
+      "judge": {
+        "score": 3,
+        "reason": "The alert quantifies the incident and supports the acceptance-drop cause, but gives no next step to investigate it. It also calls p95 and error rates unchanged when they have small baseline differences."
+      }
+    }
+  ]
+}

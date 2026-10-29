@@ -1,0 +1,12 @@
+{
+  "_note": "The correct call for each fictional experiment in src/posthog_agents/experiment_readout/mock_data.py, decided by hand from the counts.",
+  "1": {"decision": "ship", "variant": "test", "why": "13.0% vs 10.0% on 3,000 users each, refunds flat"},
+  "2": {"decision": "keep_control", "variant": "control", "why": "10.2% vs 10.0%, no reliable difference"},
+  "3": {"decision": "invalid", "variant": null, "why": "sample ratio mismatch: 3,000 vs 2,400 on a 50/50 split"},
+  "4": {"decision": "keep_running", "variant": null, "why": "3 days and about 300 users per group"},
+  "5": {"decision": "keep_control", "variant": "control", "why": "test wins upgrades but refunds go from 1.0% to 2.5%"},
+  "6": {"decision": "ship", "variant": "variant_b", "why": "13.5% vs 10.8% vs 10.0% across three groups"},
+  "7": {"decision": "keep_control", "variant": "control", "why": "looked like a 2x win on day 2; full run is 10.5% vs 10.0%, not reliable"},
+  "8": {"decision": "invalid", "variant": null, "why": "400 of 5,400 users (7.4%) saw both layouts"},
+  "9": {"decision": "keep_control", "variant": "control", "why": "real but tiny lift (+5%) below the 10% worth shipping"}
+}
